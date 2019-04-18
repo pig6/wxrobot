@@ -1,13 +1,14 @@
-# 百度转换
 from aip import AipSpeech
 from io import BytesIO
 from pydub import AudioSegment
 
+import config_operate
 
-"""百度语音申请地址：http://yuyin.baidu.com/"""
-APP_ID = '16031816'
-API_KEY = 'mwK1Oul70bWZLXvx5EwSNK2A'
-SECRET_KEY = 'ZBR34U4aaWNjl83TUkkcGliKDzZYMoSa'
+
+# 百度语音免费申请应用即可获取这三个key
+APP_ID = config_operate.baidu_yuyin_app_id
+API_KEY = config_operate.baidu_yuyin_api_key
+SECRET_KEY = config_operate.baidu_yuyin_secret_key
 
 client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 
@@ -30,7 +31,11 @@ def get_file_content(msg):
 
 
 if __name__ == '__main__':
-    """测试百度转换接口"""
+    """
+        测试百度语音转文字接口
+        需要在common.cfg中配置了你免费申请的百度语音key才可以测试
+        百度语音免费申请地址：http://yuyin.baidu.com/
+    """
     file_io = None
     with open('baidu-test.m4a', 'rb') as fp:
         file_io = fp.read()

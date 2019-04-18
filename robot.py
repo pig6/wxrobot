@@ -1,7 +1,7 @@
 from wxpy import *
 
 import wx_friend
-import baidu_transition
+import baidu_yuyin
 
 # 微信机器人，缓存登录信息
 bot = Bot(cache_path=True)
@@ -11,14 +11,14 @@ bot = Bot(cache_path=True)
 def auto_reply(msg):
     """自动回复"""
     # if msg.type == TEXT:
-    # wx_friend.auto_reply(msg)
+    wx_friend.auto_reply(msg)
     # elif msg.type == RECORDING:
     #     baidu_transition
 
 
 @bot.register(chats=Friend, msg_types=RECORDING)
 def auto_reply(msg):
-    text_msg = baidu_transition.voice_to_text(msg)
+    text_msg = baidu_yuyin.voice_to_text(msg)
     wx_friend.auto_reply(text_msg)
 
 
