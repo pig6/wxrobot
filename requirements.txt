@@ -1,6 +1,2 @@
 # need to install module
 wxpy
-baidu-aip
-pydub
-ffprobe
-ffmpeg

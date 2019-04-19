@@ -1,32 +1,24 @@
-# 图灵机器人
 from wxpy import *
 import requests
 import json
 
-import config_operate
-
 
 """
-    免费申请图灵机器人，获取api_key填入common.cfg中
+    免费申请图灵机器人，获取api_key
     图灵机器人免费申请地址 http://www.tuling123.com
 """
-tuling = Tuling(api_key=config_operate.tuling_api_key)
+tuling = Tuling(api_key='7c8cdb56b0dc4450a8deef30a496bd4c')
 
 
 def auto_reply(msg):
     """回复消息，并返回答复文本"""
-    tuling.do_reply(msg)
-
-
-def text_reply(msg):
-    """仅返回消息的答复文本，不会回复"""
-    return tuling.reply_text(msg)
+    return tuling.do_reply(msg)
 
 
 if __name__ == '__main__':
     """
         直接点击测试图灵机器人
-        此apikey为wxpy自带apikey，建议自己免费申请一个
+        此apikey为wxpy自带apikey，有使用次数限制，建议自己免费申请一个
         图灵机器人免费申请地址 http://www.tuling123.com
     """
     apikey = '7c8cdb56b0dc4450a8deef30a496bd4c'
