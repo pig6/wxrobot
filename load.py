@@ -10,7 +10,9 @@ def load_config_bot(bot):
     try:
         bot.master = ensure_one(
             bot.friends().search(remark_name=config.bot_master_remark_name, signature=config.bot_master_signature))
-        bot_status += '\n机器人主人设置成功：「{0}」，你在README.md查看管理员命令'.format(config.bot_master_remark_name)
+        bot_status += '\n机器人主人设置成功：「{0}」，这里查看管理员命令手册->：' \
+                      'https://github.com/pig6/wxrobot/tree/dev-tuling#%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD'\
+                      .format(config.bot_master_remark_name)
     except ValueError:
         bot.master = bot.file_helper
         bot_status += '\n机器人主人设置未成功，信息将发送至文件助手，不能远程用命令控制机器人！'

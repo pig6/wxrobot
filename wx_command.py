@@ -24,33 +24,33 @@ def do_command(msg):
         msg.reply('已开启')
         return None
 
-    if '打开好友自动回复' == msg.text:
+    if '打开好友回复' == msg.text:
         msg.bot.is_friend_auto_reply = True
-        msg.reply('已打开好友自动回复')
+        msg.reply('已打开好友回复')
         return None
 
-    if '关闭好友自动回复' == msg.text:
+    if '关闭好友回复' == msg.text:
         msg.bot.is_friend_auto_reply = False
-        msg.reply('已关闭好友自动回复')
+        msg.reply('已关闭好友回复')
         return None
 
     if '打开群聊回复' == msg.text:
-        msg.bot.is_group_auto_reply = True
+        msg.bot.is_group_reply = True
         msg.reply('已打开群聊回复')
         return None
 
     if '关闭群聊回复' == msg.text:
-        msg.bot.is_group_auto_reply = False
+        msg.bot.is_group_reply = False
         msg.reply('已关闭群聊回复')
         return None
 
     if '打开群聊艾特回复' == msg.text:
-        msg.bot.is_group_auto_reply_need_at = True
+        msg.bot.is_group_at_reply = True
         msg.reply('已打开群聊艾特回复')
         return None
 
     if '关闭群聊艾特回复' == msg.text:
-        msg.bot.is_group_auto_reply_need_at = False
+        msg.bot.is_group_at_reply = False
         msg.reply('已关闭群聊艾特回复')
         return None
 
