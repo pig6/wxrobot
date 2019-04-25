@@ -1,13 +1,16 @@
-from wxpy import *
-import requests
 import json
+import requests
+
+from wxpy import *
+
+import config
 
 
 """
     免费申请图灵机器人，获取api_key
     图灵机器人免费申请地址 http://www.tuling123.com
 """
-tuling = Tuling(api_key='7c8cdb56b0dc4450a8deef30a496bd4c')
+tuling = Tuling(api_key=config.tuling_api_key)
 
 
 def auto_reply(msg):

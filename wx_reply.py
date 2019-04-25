@@ -1,8 +1,5 @@
 # 好友功能
-from wxpy import *
 import tuling_robot
-
-bot = Bot()
 
 
 def auto_accept_friends(msg):
