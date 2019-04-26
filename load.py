@@ -10,7 +10,7 @@ def load_config_to_bot(bot):
     master = search_friend(bot, config.bot_master_name)
     if master:
         bot.master = master
-        bot_status += '\n机器人管理员成功设置为：「{0}」，这里查看管理员命令手册->：' \
+        bot_status += '\n机器人管理员成功设置为：「{0}」，这里查看管理员命令手册->' \
                       'https://github.com/pig6/wxrobot\n\n'.format(config.bot_master_name)
     else:
         bot.master = bot.file_helper
