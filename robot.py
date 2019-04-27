@@ -57,6 +57,12 @@ def group_entrance(msg):
     return None
 
 
+@bot.register(msg_types=NOTE)
+def withdraw_msg(msg):
+    """撤回消息"""
+    wx_reply.handle_withdraw_msg(msg)
+
+
 """管理员功能"""
 @bot.register(chats=bot.master)
 def do_command(msg):
