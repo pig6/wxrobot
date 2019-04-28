@@ -52,7 +52,7 @@ def forward_revoke_msg(msg):
             if old_msg_item.member:
                 sender_name = '群「{0}」中的「{1}」'.format(old_msg_item.chat.name, old_msg_item.member.name)
             else:
-                sender_name = old_msg_item.chat.name
+                sender_name = '「{}」'.format(old_msg_item.chat.name)
             # 名片无法转发
             if old_msg_item.type == 'Card':
                 sex = '男' if old_msg_item.card.sex == 1 else '女' or '未知'
