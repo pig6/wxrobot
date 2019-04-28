@@ -49,12 +49,12 @@ def do_command(msg):
         return None
 
     if '开启防撤回模式' == msg.text:
-        msg.bot.is_forward_recall_msg = True
+        msg.bot.is_forward_revoke_msg = True
         msg.reply('已开启防撤回模式')
         return None
 
     if '关闭防撤回模式' == msg.text:
-        msg.bot.is_forward_recall_msg = False
+        msg.bot.is_forward_revoke_msg = False
         msg.reply('已关闭防撤回模式')
         return None
 

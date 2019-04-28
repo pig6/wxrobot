@@ -35,7 +35,7 @@ def handle_system_msg(msg):
     """处理系统消息"""
     raw = msg.raw
     # 4表示消息状态为撤回
-    if raw['Status'] == 4:
+    if raw['Status'] == 4 and msg.bot.is_forward_revoke_msg:
         # 转发撤回的消息
         forward_revoke_msg(msg)
 
