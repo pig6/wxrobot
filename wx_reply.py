@@ -59,7 +59,7 @@ def forward_revoke_msg(msg):
                 msg.bot.master.send('「{0}」撤回了一张名片：\n名称：{1}，性别：{2}'.format(sender_name, old_msg_item.card.name, sex))
             else:
                 # 转发被撤回的消息
-                old_msg_item.forward(msg.bot.master, prefix='「{}」撤回了一条消息：'.format(sender_name, get_msg_chinese_type(old_msg_item.type)))
+                old_msg_item.forward(msg.bot.master, prefix='{}撤回了一条消息：'.format(sender_name, get_msg_chinese_type(old_msg_item.type)))
             return None
 
 
