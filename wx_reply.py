@@ -31,27 +31,59 @@ def tuling_reply(msg):
     tuling_robot.auto_reply(msg)
 
 
-def handle_withdraw_msg(msg):
-    """测回消息"""
+def handle_system_msg(msg):
+    """处理系统消息"""
     raw = msg.raw
+    # 4表示消息状态为撤回
     if raw['Status'] == 4:
-        # 获取被撤回消息的ID
-        oldmsgid = re.search(re.compile('<msgid>(.*?)</msgid>', re.S), raw['Content']).group(1)
-        for one_msg in msg.bot.messages[::-1]:  # 从后循环所有信息
-            if oldmsgid == str(one_msg.id):  # 此msg就是撤回的信息
-                # 根据发送者设定转发前缀
-                if one_msg.member:
-                    the_sender = '群[%s]中的 @%s ' % (one_msg.chat.name, one_msg.member.name)
-                else:
-                    the_sender = one_msg.chat.name
-                # 不是名片时，直接用forward转发到文件助手
-                if one_msg.type != 'Card':
-                    one_msg.forward(msg.bot.file_helper, prefix='%s\n撤回了一条%s消息：' % (the_sender, one_msg.type))
-                else:
-                    card = one_msg.card
-                    name = card.name
-                    if card.sex == 1:
-                        sex = '男'
-                    else:
-                        sex = '女'
-                    msg.bot.file_helper.send('%s\n撤回了一张名片：\n名称：%s，性别：%s' % (the_sender, name, sex))
+        # 转发撤回的消息
+        forward_revoke_msg(msg)
+
+
+def forward_revoke_msg(msg):
+    """转发撤回的消息"""
+    # 获取被撤回消息的ID
+    revoke_msg_id = re.search('<msgid>(.*?)</msgid>', msg.raw['Content']).group(1)
+    # bot中有缓存之前的消息，默认200条
+    for old_msg_item in msg.bot.messages[::-1]:
+        # 查找撤回的那条
+        if revoke_msg_id == str(old_msg_item.id):
+            # 判断是群消息撤回还是好友消息撤回
+            if old_msg_item.member:
+                sender_name = '群「{0}」中的「{1}」'.format(old_msg_item.chat.name, old_msg_item.member.name)
+            else:
+                sender_name = old_msg_item.chat.name
+            # 名片无法转发
+            if old_msg_item.type == 'Card':
+                sex = '男' if old_msg_item.card.sex == 1 else '女' or '未知'
+                msg.bot.master.send('「{0}」撤回了一张名片：\n名称：{1}，性别：{2}'.format(sender_name, old_msg_item.card.name, sex))
+            else:
+                # 转发被撤回的消息
+                old_msg_item.forward(msg.bot.master, prefix='「{}」撤回了一条消息：'.format(sender_name, get_msg_chinese_type(old_msg_item.type)))
+            return None
+
+
+def get_msg_chinese_type(msg_type):
+    """转中文类型名"""
+    if msg_type == 'Text':
+        return '文本'
+    if msg_type == 'Map':
+        return '位置'
+    if msg_type == 'Card':
+        return '名片'
+    if msg_type == 'Note':
+        return '提示'
+    if msg_type == 'Sharing':
+        return '分享'
+    if msg_type == 'Picture':
+        return '图片'
+    if msg_type == 'Recording':
+        return '语音'
+    if msg_type == 'Attachment':
+        return '文件'
+    if msg_type == 'Video':
+        return '视频'
+    if msg_type == 'Friends':
+        return '好友请求'
+    if msg_type == 'System':
+        return '系统'

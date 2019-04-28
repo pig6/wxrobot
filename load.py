@@ -5,19 +5,21 @@ import config
 
 def load_config_to_bot(bot):
     """加载配置项"""
-    has_master = False
     bot_status = '机器人登录成功！！！'
-    # 定义远程管理主人 (用于远程管理)
-    if config.bot_master_name:
+    # 未定义机器人管理员
+    if not config.bot_master_name:
+        bot.master = bot.file_helper
+        bot_status += '\n未设置机器人管理员，信息将发送至文件助手，不能使用远程命令控制机器人！\n\n'
+    else:
         master = search_friend(bot, config.bot_master_name)
+        # 查找管理员
         if master:
-            has_master = True
             bot.master = master
             bot_status += '\n机器人管理员成功设置为：「{0}」，这里查看管理员命令手册->' \
                           'https://github.com/pig6/wxrobot\n\n'.format(config.bot_master_name)
-    if not has_master:
-        bot.master = bot.file_helper
-        bot_status += '\n机器人管理员未成功设置，信息将发送至文件助手，不能使用远程命令控制机器人！\n\n'
+        else:
+            bot.master = bot.file_helper
+            bot_status += '\n在好友列表中未找到名为「{}」的好友，信息将发送至文件助手，不能使用远程命令控制机器人！\n\n'.format(config.bot_master_name)
     # 设置开关
     bot.is_friend_auto_reply = config.is_friend_auto_reply
     bot.is_group_reply = config.is_group_reply
@@ -25,6 +27,7 @@ def load_config_to_bot(bot):
     bot.is_listen_friend = config.is_listen_friend
     bot.is_forward_mode = config.is_forward_mode
     bot.is_listen_sharing = config.is_listen_sharing
+    bot.is_forward_recall_msg = config.is_forward_recall_msg
     # 加载对应好友和群
     load_listen_friend(bot)
     load_forward_groups(bot)
@@ -85,6 +88,8 @@ def bot_status_detail(bot):
     bot_config_status += '\n群聊回复：{}'.format(('是' if bot.is_group_reply else '否'))
     if bot.is_group_reply:
         bot_config_status += '，是否需要@才回复：{}'.format('是' if bot.is_group_at_reply else '否')
+
+    bot_config_status += '\n是否开启防撤回模式：{}'.format(('是' if bot.is_forward_recall_msg else '否'))
 
     bot_config_status += '\n是否开启监听模式：{}'.format('是' if bot.is_listen_friend else '否')
     if bot.is_listen_friend:

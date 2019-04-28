@@ -19,8 +19,8 @@ def auto_accept_friends(msg):
 
 
 @bot.register(chats=Friend)
-def friend_auto_reply(msg):
-    """好友自动回复"""
+def friend_msg(msg):
+    """接收好友消息"""
     if not msg.bot.is_friend_auto_reply:
         return None
     if msg.type == TEXT:
@@ -34,8 +34,8 @@ def friend_auto_reply(msg):
 
 """群功能"""
 @bot.register(chats=Group)
-def group_entrance(msg):
-    """自动回复"""
+def group_msg(msg):
+    """接收群消息"""
     if msg.type == TEXT:
         # 群回复
         if msg.bot.is_group_reply:
@@ -58,9 +58,9 @@ def group_entrance(msg):
 
 
 @bot.register(msg_types=NOTE)
-def withdraw_msg(msg):
-    """撤回消息"""
-    wx_reply.handle_withdraw_msg(msg)
+def system_msg(msg):
+    """接收系统消息"""
+    wx_reply.handle_system_msg(msg)
 
 
 """管理员功能"""
