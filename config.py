@@ -10,7 +10,7 @@ is_group_at_reply = True  # 上一项开启后此项才生效
 is_forward_recall_msg = True  # 开启防撤回模式
 
 # 机器人主人
-bot_master_name = '猪哥大神'  # 使用备注名更安全，只允许一个，可远程控制机器人，如果不设置(空)则将文件助手设置为管理员，但不具备远程控制功能
+bot_master_name = ''  # 使用备注名更安全，只允许一个，可远程控制机器人，如果不设置(空)则将文件助手设置为管理员，但不具备远程控制功能
 
 # 监听某些好友群聊，如老板
 is_listen_friend = False
