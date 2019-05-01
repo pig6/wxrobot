@@ -6,7 +6,7 @@ import load
 
 
 # 微信机器人，缓存登录信息，调用初始化方法
-bot = Bot(cache_path=True)
+bot = Bot(cache_path=True, console_qr=True)
 # 加载配置信息到机器人
 load.load_config_to_bot(bot)
 
@@ -36,6 +36,10 @@ def friend_msg(msg):
 @bot.register(chats=Group)
 def group_msg(msg):
     """接收群消息"""
+    # 群@转发功能
+    if msg.is_at and msg.bot.is_forward_group_at_msg:
+        msg.forward(msg.bot.master, prefix='「{0}」在群「{1}」中艾特了你：'.format(msg.member.name, msg.chat.name))
+
     if msg.type == TEXT:
         # 群回复
         if msg.bot.is_group_reply:
@@ -70,5 +74,6 @@ def do_command(msg):
     wx_command.do_command(msg)
 
 
-# 互交模式，阻塞线程，使程序一直运行
-embed()
+# 堵塞进程，直到结束消息监听 (例如，机器人被登出时)
+# embed() 互交模式阻塞，电脑休眠或关闭互交窗口则退出程序
+bot.join()

@@ -28,6 +28,7 @@ def load_config_to_bot(bot):
     bot.is_forward_mode = config.is_forward_mode
     bot.is_listen_sharing = config.is_listen_sharing
     bot.is_forward_revoke_msg = config.is_forward_revoke_msg
+    bot.is_forward_group_at_msg = config.is_forward_group_at_msg
     # 加载对应好友和群
     load_listen_friend(bot)
     load_forward_groups(bot)
@@ -88,6 +89,8 @@ def bot_status_detail(bot):
     bot_config_status += '\n群聊回复：{}'.format(('是' if bot.is_group_reply else '否'))
     if bot.is_group_reply:
         bot_config_status += '，是否需要@才回复：{}'.format('是' if bot.is_group_at_reply else '否')
+
+    bot_config_status += '\n是否开启转发群艾特模式：{}'.format(('是' if bot.is_forward_group_at_msg else '否'))
 
     bot_config_status += '\n是否开启防撤回模式：{}'.format(('是' if bot.is_forward_revoke_msg else '否'))
 

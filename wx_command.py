@@ -48,6 +48,16 @@ def do_command(msg):
         msg.reply('已关闭群聊艾特回复')
         return None
 
+    if '开启转发群艾特模式' == msg.text:
+        msg.bot.is_forward_group_at_msg = True
+        msg.reply('已开启转发群艾特模式')
+        return None
+
+    if '关闭转发群艾特模式' == msg.text:
+        msg.bot.is_forward_group_at_msg = False
+        msg.reply('已关闭转发群艾特模式')
+        return None
+
     if '开启防撤回模式' == msg.text:
         msg.bot.is_forward_revoke_msg = True
         msg.reply('已开启防撤回模式')
@@ -84,7 +94,7 @@ def do_command(msg):
         return None
 
     if '关闭监控模式' == msg.text:
-        msg.msg.bot.is_listen_sharing = False
+        msg.bot.is_listen_sharing = False
         msg.reply('已关群分享监控')
         return None
 
