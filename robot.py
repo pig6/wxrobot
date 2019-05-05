@@ -5,7 +5,7 @@ import wx_command
 import load
 
 
-# 微信机器人，缓存登录信息，调用初始化方法
+# 微信机器人，缓存登录信息，console_qr表示在控制台打出二维码，部署到服务器时需要加上
 bot = Bot(cache_path=True, console_qr=True)
 # 加载配置信息到机器人
 load.load_config_to_bot(bot)

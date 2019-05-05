@@ -2,6 +2,8 @@ from wxpy import *
 
 import config
 
+logger = logging.getLogger('itchat')
+
 
 def load_config_to_bot(bot):
     """加载配置项"""
@@ -36,7 +38,7 @@ def load_config_to_bot(bot):
     # 发送机器人状态信息
     bot_status = bot_status if '文件助手' in bot_status else bot_status + bot_status_detail(bot)
     bot.master.send(bot_status)
-    print(bot_status)
+    logger.info(bot_status)
 
 
 def load_listen_friend(bot):
